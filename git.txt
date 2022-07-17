@@ -1,0 +1,275 @@
+GitKraken
+GIT : Global Information Tracker 
+
+ git is version controll system taht runs locally on system 
+ no need  to register or internet access.
+ you can use git without GITHUB.
+
+
+GITHUB : service which hosts git repo on cloud 
+		 and helps to collabrate with other people 
+		 need account to use github 
+		 it is online placed to share work that is done using git 
+
+//Setting up vscode as editor 
+ git config --global core.editor "code --wait"
+		 
+
+git log --oneline 
+git shortlog 
+		 
+		
+git commit --amend //redo changes to last commit only
+
+//IGNORING FILES 
+create file in root of repo 
+.gitignore  		
+
+inside that specify files to be ignored 
+abc.txt
+*.log // ignore all files with .log 
+
+ 
+//checkout branch 
+git switch branchName 
+ 
+//create branch and checkout 
+git switch -c branchName  or git checkout -b branchName 
+
+
+//rename branch
+checkout branch which need to be renamed 
+git branch -m newBranchName
+
+//Delete branch 
+git branch -d branchname 
+git branch -D branchName //equivalent to git delete --force
+
+
+//merge 
+git merge branchName //merges changes from branchName to current branch
+
+//branch names  with last commit
+git branch -v
+
+
+
+
+------------------------GIT DIFF-------------------------
+git diff  //shows unstage changes only
+git diff Head //diff after last commit ie Head //lists all staged and unstage changes
+
+git diff --staged //only shows staged  diff
+git diff commit1 commit2 //diff between two commit
+
+
+git diff: It shows only those changes of tracked files (UNSTAGE CHANGES) which are present in working directory.
+
+git diff --cached: It shows only those changes of tracked files which are present in staging area.
+
+git diff HEAD: It shows all changes of tracked files which are present in working directory and staging area.
+
+git diff branch1..branch2 : 
+			Git will compare the HEAD of both branches and display a 'diff' recap that you can use to see modifications. 
+			It will show you all the commits that 'branch2” has that are not in 'branch1'.
+
+
+-------------------GIT STASH ----------------
+git stash save 
+git stash pop //removes and appplies stash 
+
+git stash apply //to aply changes without removing it from stash , is is use to apply stash to multiple branch
+
+//MULTIPLE STASH
+git stash list  //get list of stashes
+
+$ git stash list
+stash@{0}: WIP on stage: 15cf85e letsCheckStash
+stash@{1}: WIP on stage: 15cf85e letsCheckStash
+
+git stash apply stash@{1} // it will apply this stash stash@{1}
+
+**** CUSTOM MESSAGE FOR STASH
+$ git stash push -m "john-hancock"
+$ git stash apply stash^{/john-hancock}
+
+
+//DROP STASHES 
+git stash clear //drops all stash
+git stash drop stash@{1} //to drop stash@{1}
+
+
+
+********************************************UNDO CHANGES************************
+
+When you accidentlly checkout to old commit  --> git checkout commitID
+Head will be detached 
+
+git checkout HEAD~1 //checkout one commit before
+
+//DISCARD CHANGES
+git checkout HEAD filename //restore file to last commit ie HEAD
+git checkout --filename 
+git restore filename
+
+unmodifying files with Restore 
+git restore --source HEAD~2 filename //file will be restore to two commits before head
+
+git restore --staged filename //retsore staged file //file to be ignored while commiting
+
+
+
+
+git reset commitId  // still chanegs are in working dir bt history will be removed ie git log used in case u commited on wrong branch
+git reset --hard commitId ; //undo commit and set head to commitId
+git revet commitId //creates new commmit which removes commitId data 
+ 
+
+
+//conncet local repo to REMOTE //SETTING UP NEW REPO ON REMOTE
+
+
+git remote -v  //displays all remote repo
+git remote add origin GITHUBURL // connect local repo to GITHUB
+git remote rename old new  // ALTERNATE git branch -M newName
+git remote remove name 
+git branch -r //list all fetch branches from remote
+
+
+****************GIT PUSH ****************
+git clone url //to clone remote repo
+git poush -u origin master //setting up upstream branch ==  git push --set-upstream origin BranchName
+git push origin branchName //where origin is remote 
+git push origin localBranch:DifferentRemoteBranchName 
+
+$ git checkout --track origin/main
+fatal: A branch named 'main' already exists.
+
+
+git fetch origin //to fetch changes on remote without Merge
+git pull origin main //to fetch and merge changes
+
+
+
+
+*************REBASE******************* 
+
+git rebase branchName 
+
+//cleanup history using git rebase
+git rebase -i Head~4  //-i stands for interactive and Head~4 go back 4 commits
+
+reword -change comit message
+fixup - fixup(merges) commit with previous one and keeps only one entry in log ie previous commit
+squash - The difference between squash and fixup is that during the rebase, 
+		the squash operation will prompt you to combine the messages of the original 
+		and the squash commit, 
+		whereas the fixup operation will keep the original message 
+		and discard the message from the fixup commit.
+drop - drop particular commit and removes all changes
+
+
+***********GIT TAGS***********
+tagging just make refrences 
+generally used for different release 
+  
+lightweighgt tag : generall tags 
+annoted tags : which cantain metadata like author....
+
+RELEASE 2.5.7 where 2=major release ,5=minor and 7=patch
+
+*Create lightweight tag
+git tag TagName //to create tag on current head/latest commit 
+
+*Create annotated tag 
+git tag -a tagName 
+
+git show tagName //will display info about tag who created this tag,date time  n all
+
+*create tag for old commits 
+git tag tagName commitId 
+
+*replace tag 
+git tag V1.1.1 commitId -f
+
+*delete tag 
+git tag -d tagName 
+
+* push all tags on remote 
+git push --tags 
+
+*push specific tag 
+git push origin tagName 
+
+git tag //to view tags 
+
+git tag -l "*version*" //show list of tags having version word in them
+
+git checkout tagName //head will be detached 
+
+git diff tag1 tag2 //check diff with tags 
+
+
+
+
+
+*******************CUSTOM GIT ALIAS*************************
+
+open gitConfig file 
+and specify details 
+
+[alias]
+	a=add
+	cm=commit -m
+
+
+
+*********Object in git*********
+.git/objects
+
+objects directory cantains all info about repo 
+and these files are compressed and encrypted 
+
+4 types of git objects 
+commit 
+tree 
+blob - binary large object
+annotated tags
+
+hashing functions are functions that map unput data of arbitary(variable) size to fixed size o/p values
+
+for git commits it gives 40char commitId //SHA-1 ALGORITHM IS USED
+also for tree,blob,annotated tags uses same SHA-1 ALGORITHM/ Hashing Function 
+
+git hash-object file 
+* echo "hello" | git hash-object --stdin
+* echo "hello" | git hash-object --stdin -w //for writing and storing it in git/objects 
+
+
+RETRIEVING DATA WITH GIT CAT 
+git cat-file -p commitId/hashId
+
+git cat-file -p > filename
+
+VIES TREES :   git cat-file -p master ^{tree} //tree object pointed by master branch 
+tree represent structure of directory
+
+when we commit git creates new commit Object 
+tree  
+parent 
+author 
+commiter 
+message 
+  
+ 
+ 
+***********REFLOG***********
+
+git reflog
+git reflog show Head
+git reflog show Head@{yesterday}
+git reflog show Head@{two.days.ago}
+git reflog show main
+ 
+markdown : text to html conversion tool (https://markdown-it.github.io/)
+fork : creates individual copy of repository
