@@ -1,0 +1,35 @@
+man: for opening manual eg- man ls it will display manual for ls command 
+ssh: secure shell 
+echo: display 
+ls:  List  information  about the FILEs (the current directory by default).
+ls-l : shows that the file's permissions eg : ls -l filename
+dir: list directory contents
+cd:  change directory 
+cp:  copy files and directories 
+mv: move (rename) files
+less: opposite of more
+cat:  concatenate files and print on the standard output
+date: print or set the system date and time
+head: output the first part of files -10
+tail: output the last part of files -10
+diff:  diff - compare files line by line
+top: display Linux processes
+df: report file system disk space usage
+uptime: Tell how long the system has been running.
+vi:  Vi IMproved, a programmer's text editor
+nano: Nano's ANOther editor, an enhanced free Pico clone
+chmod: change file mode bits , 1 :execute 2:write 4:read
+chown: change file owner and group
+kill: send a signal to a process
+ps : report a snapshot of the current processes.
+ 
+Environment variables : 
+variables are case sensetive and usually are in UPPERCASE letters 
+
+ 
+env : command displays all environment variables 
+
+create new variable : VARIABLENAME=1222 / "abc " etc 
+check variable value  : echo $VARIABLENAME
+delete variable name : unset VARIABLENAME 
+update /Set variable name :export VARIABLENAME=value
